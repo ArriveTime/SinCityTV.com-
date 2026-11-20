@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SinCityTV.com — 24/7 Las Vegas News, Live Feeds &amp; Advertising Hub</title>
+  <title>SinCityTV.com — 24/7 Las Vegas News, Parking Finder &amp; Advertising Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-base: #07090f;
-      --surface: rgba(13, 17, 27, 0.86);
-      --surface-elevated: rgba(20, 26, 41, 0.92);
+      --surface: rgba(13, 17, 27, 0.87);
       --border: rgba(255, 255, 255, 0.12);
       --border-gold: rgba(245, 194, 66, 0.45);
       --text-primary: #f5f7fb;
@@ -20,6 +19,7 @@
       --gold: #f5c242;
       --crimson: #e11d48;
       --cyan: #22d3ee;
+      --emerald: #34d399;
     }
 
     * {
@@ -52,7 +52,6 @@
       padding: 0 20px;
     }
 
-    /* Top Masthead */
     header.masthead {
       position: sticky;
       top: 0;
@@ -97,7 +96,6 @@
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.5rem;
       font-weight: 800;
-      letter-spacing: 0.01em;
     }
 
     .brand-title span {
@@ -136,9 +134,8 @@
       white-space: nowrap;
     }
 
-    /* Hero Banner */
     .hero {
-      padding: 46px 0 32px;
+      padding: 44px 0 28px;
     }
 
     .hero-panel {
@@ -164,14 +161,14 @@
 
     .hero h1 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2rem, 4.2vw, 3.1rem);
+      font-size: clamp(2rem, 4.2vw, 3.05rem);
       line-height: 1.12;
       margin-bottom: 12px;
     }
 
     .hero p {
       color: var(--text-secondary);
-      max-width: 780px;
+      max-width: 790px;
       font-size: 1rem;
       margin-bottom: 22px;
     }
@@ -191,6 +188,9 @@
       font-size: 0.9rem;
       padding: 11px 18px;
       border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
       transition: transform 0.15s ease, background 0.18s ease, border-color 0.18s ease;
     }
 
@@ -215,10 +215,8 @@
 
     .btn-ghost:hover {
       background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.25);
     }
 
-    /* Sections & Cards */
     section.content-section {
       padding: 26px 0;
     }
@@ -235,12 +233,43 @@
     .section-head h2 {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.65rem;
-      color: var(--text-primary);
     }
 
     .section-head p {
       color: var(--text-secondary);
       font-size: 0.9rem;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.16s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .filter-btn.active {
+      background: var(--gold);
+      color: #090b10;
+      border-color: var(--gold);
     }
 
     .grid-3 {
@@ -273,13 +302,47 @@
       transform: translateY(-2px);
     }
 
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
     .card-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--cyan);
-      margin-bottom: 6px;
+    }
+
+    .status-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .status-free {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--emerald);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+    }
+
+    .status-cond {
+      background: rgba(245, 194, 66, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(245, 194, 66, 0.4);
+    }
+
+    .status-paid {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
     }
 
     .card h3 {
@@ -308,7 +371,12 @@
       text-decoration: underline;
     }
 
-    /* Advertising Banner */
+    .notice-strip {
+      margin-top: 12px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
     .ad-box {
       background: linear-gradient(135deg, rgba(20, 26, 41, 0.94), rgba(35, 22, 14, 0.9));
       border: 1px solid var(--border-gold);
@@ -328,7 +396,6 @@
       margin: 10px 0 14px;
     }
 
-    /* Footer & Disclaimers */
     footer.site-footer {
       margin-top: 40px;
       background: rgba(5, 7, 12, 0.94);
@@ -397,6 +464,7 @@
       </a>
 
       <nav class="top-nav" aria-label="Primary Navigation">
+        <a href="#parking-finder">Parking Finder</a>
         <a href="#news-stations">News Stations</a>
         <a href="#cams-traffic">Cams &amp; Traffic</a>
         <a href="#lifestyle-sports">Nightlife, Dining &amp; Sports</a>
@@ -412,20 +480,130 @@
   <main id="top" class="container">
     <section class="hero">
       <div class="hero-panel">
-        <div class="eyebrow">Las Vegas News &bull; Live Feeds &bull; Advertising Directory</div>
-        <h1>Everything Las Vegas, Routed Straight to Official Sources</h1>
+        <div class="eyebrow">Las Vegas News &bull; Parking Finder &bull; Live Feeds &bull; Advertising</div>
+        <h1>Practical Las Vegas Info, Parking &amp; Direct Links</h1>
         <p>
-          SinCityTV.com is a 24/7 Las Vegas information and advertising portal connecting visitors and locals
-          to local news stations, live street and traffic cams, nightlife and dining platforms, sports coverage,
-          and real estate resources—with zero lead forms and direct external links.
+          SinCityTV.com combines everyday driving tools—like a quick filter for Las Vegas parking options and
+          one-click map directions—with direct links to local news stations, live cams, traffic feeds, nightlife,
+          dining, sports, and real estate portals. No forms required.
         </p>
         <div class="hero-actions">
-          <a href="#news-stations" class="btn btn-gold">Browse Las Vegas News Links</a>
+          <a href="#parking-finder" class="btn btn-gold">Find Las Vegas Parking</a>
           <a href="mailto:ALL4AIM@hotmail.com?subject=Advertising%20Inquiry%20-%20SinCityTV.com" class="btn btn-ghost">
             Ad Inquiries: ALL4AIM@hotmail.com
           </a>
         </div>
       </div>
+    </section>
+
+    <!-- Practical Utility: Las Vegas Parking Finder -->
+    <section id="parking-finder" class="content-section">
+      <div class="section-head">
+        <div>
+          <h2>Las Vegas Parking Finder &amp; Policy Guide</h2>
+          <p>Filter parking options by corridor and policy type, then open turn-by-turn directions in Google Maps.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar" role="group" aria-label="Filter parking locations">
+        <button type="button" class="filter-btn active" data-filter="all">All Locations</button>
+        <button type="button" class="filter-btn" data-filter="free">Generally Free</button>
+        <button type="button" class="filter-btn" data-filter="conditional">Validation / Local / Tier Rules</button>
+        <button type="button" class="filter-btn" data-filter="paid">Paid / Event Rates</button>
+        <button type="button" class="filter-btn" data-filter="strip">The Strip</button>
+        <button type="button" class="filter-btn" data-filter="downtown">Downtown / Fremont</button>
+      </div>
+
+      <div class="grid-3" id="parkingGrid">
+        <article class="card" data-policy="free" data-area="strip">
+          <div>
+            <div class="card-top">
+              <span class="card-tag">The Strip &bull; South Corridor</span>
+              <span class="status-pill status-free">Free Policy</span>
+            </div>
+            <h3>Treasure Island (TI) Self-Parking</h3>
+            <p>Long-standing free self-parking option along the Strip corridor, subject to capacity and special event rules.</p>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Treasure+Island+Las+Vegas+Parking" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Open Directions in Google Maps &rarr;
+          </a>
+        </article>
+
+        <article class="card" data-policy="free" data-area="downtown">
+          <div>
+            <div class="card-top">
+              <span class="card-tag">Downtown &bull; Fremont Area</span>
+              <span class="status-pill status-free">Free Policy</span>
+            </div>
+            <h3>Downtown Las Vegas Free Self-Park Options</h3>
+            <p>Select downtown properties and lots offer free parking or validation; check garage signage on arrival.</p>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Downtown+Las+Vegas+free+parking" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Search Downtown Parking on Maps &rarr;
+          </a>
+        </article>
+
+        <article class="card" data-policy="conditional" data-area="strip">
+          <div>
+            <div class="card-top">
+              <span class="card-tag">The Strip &bull; Center Corridor</span>
+              <span class="status-pill status-cond">Conditional / Rules Apply</span>
+            </div>
+            <h3>Major Resort Garages (NV Local / Tier / Validation)</h3>
+            <p>Many Strip garages charge standard parking rates unless you qualify via Nevada local perks, loyalty tier, or time window.</p>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+Strip+parking+garage" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Locate Strip Garages on Maps &rarr;
+          </a>
+        </article>
+
+        <article class="card" data-policy="paid" data-area="strip">
+          <div>
+            <div class="card-top">
+              <span class="card-tag">The Strip &bull; Arena &amp; Event Zones</span>
+              <span class="status-pill status-paid">Paid / Event Rates</span>
+            </div>
+            <h3>Concert, Sports &amp; Convention Event Parking</h3>
+            <p>Expect flat event pricing, traffic hold zones, and higher demand during concerts, games, and Strip conventions.</p>
+          </div>
+          <a href="https://nvroads.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Check NV Roads Traffic &amp; Advisories &rarr;
+          </a>
+        </article>
+
+        <article class="card" data-policy="conditional" data-area="downtown">
+          <div>
+            <div class="card-top">
+              <span class="card-tag">Downtown &bull; Municipal &amp; Garage</span>
+              <span class="status-pill status-cond">Rates Vary</span>
+            </div>
+            <h3>Downtown City &amp; Garage Parking</h3>
+            <p>Municipal garages and metered spaces near Fremont Street vary by hour, day of week, and downtown events.</p>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Fremont+Street+Las+Vegas+parking" target="_blank" rel="noopener noreferrer" class="ext-link">
+            View Fremont Parking on Maps &rarr;
+          </a>
+        </article>
+
+        <article class="card" data-policy="free" data-area="strip">
+          <div>
+            <div class="card-top">
+              <span class="card-tag">Off-Strip &bull; Neighborhood</span>
+              <span class="status-pill status-free">Free Surface Lots</span>
+            </div>
+            <h3>Off-Strip Casinos &amp; Shopping Centers</h3>
+            <p>Many off-Strip properties and local retail centers offer free surface or garage parking with easy arterial access.</p>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Las+Vegas+off+strip+casino+free+parking" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Browse Off-Strip Parking on Maps &rarr;
+          </a>
+        </article>
+      </div>
+
+      <p class="notice-strip">
+        Parking Note: Resort parking policies, free windows, local perks, and special event rates change without notice.
+        This guide does not display live stall counts—always verify current rates and rules on posted garage signage.
+      </p>
     </section>
 
     <!-- Local News Stations & Press Links -->
@@ -664,11 +842,11 @@
         </div>
 
         <div class="disclaimer-card">
-          <h4>2. Third-Party Links &amp; Content</h4>
+          <h4>2. Parking &amp; Third-Party Information</h4>
           <p>
-            External links open independent third-party websites over which SinCityTV.com has no control. We do not
-            guarantee the accuracy, availability, or uninterrupted operation of third-party streams, traffic feeds,
-            listings, or news coverage.
+            Parking details and external links are provided for general convenience only. Garage availability,
+            free parking rules, validation terms, and event rates change frequently without notice. We do not
+            guarantee the accuracy or uptime of third-party streams, traffic feeds, or external websites.
           </p>
         </div>
 
@@ -724,6 +902,24 @@
       }).format(now);
       el.textContent = 'Las Vegas PT: ' + formatted;
     }
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const parkingCards = document.querySelectorAll('#parkingGrid .card');
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        filterButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        parkingCards.forEach((card) => {
+          const policy = card.getAttribute('data-policy');
+          const area = card.getAttribute('data-area');
+          const show = filter === 'all' || policy === filter || area === filter;
+          card.style.display = show ? 'flex' : 'none';
+        });
+      });
+    });
 
     document.getElementById('yearSpan').textContent = new Date().getFullYear();
     updateLasVegasClock();
