@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SinCityTV.com — 24/7 Las Vegas News, Live Feeds &amp; Advertising Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #07090f;
+      --surface: rgba(13, 17, 27, 0.86);
+      --surface-elevated: rgba(20, 26, 41, 0.92);
+      --border: rgba(255, 255, 255, 0.12);
+      --border-gold: rgba(245, 194, 66, 0.45);
+      --text-primary: #f5f7fb;
+      --text-secondary: #b7c0d1;
+      --text-muted: #7f899e;
+      --gold: #f5c242;
+      --crimson: #e11d48;
+      --cyan: #22d3ee;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-primary);
+      background-color: var(--bg-base);
+      background-image:
+        linear-gradient(180deg, rgba(7, 9, 15, 0.78) 0%, rgba(7, 9, 15, 0.88) 45%, rgba(5, 7, 12, 0.96) 100%),
+        url("https://images.unsplash.com/photo-1581351721010-8cf859cb141d?auto=format&fit=crop&w=2000&q=80");
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Top Masthead */
+    header.masthead {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(7, 9, 15, 0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .masthead-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 20px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--crimson), #9f1239);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-title span {
+      color: var(--gold);
+    }
+
+    nav.top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    nav.top-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    nav.top-nav a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .clock-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--gold);
+      background: rgba(245, 194, 66, 0.1);
+      border: 1px solid var(--border-gold);
+      padding: 6px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* Hero Banner */
+    .hero {
+      padding: 46px 0 32px;
+    }
+
+    .hero-panel {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 4.2vw, 3.1rem);
+      line-height: 1.12;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      max-width: 780px;
+      font-size: 1rem;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 11px 18px;
+      border-radius: 8px;
+      transition: transform 0.15s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #090b10;
+    }
+
+    .btn-gold:hover {
+      background: #ffd15c;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Sections & Cards */
+    section.content-section {
+      padding: 26px 0;
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.65rem;
+      color: var(--text-primary);
+    }
+
+    .section-head p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-2px);
+    }
+
+    .card-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+      margin-bottom: 6px;
+    }
+
+    .card h3 {
+      font-size: 1.12rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin-top: 4px;
+    }
+
+    .ext-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Advertising Banner */
+    .ad-box {
+      background: linear-gradient(135deg, rgba(20, 26, 41, 0.94), rgba(35, 22, 14, 0.9));
+      border: 1px solid var(--border-gold);
+      border-radius: 14px;
+      padding: 26px;
+    }
+
+    .ad-email {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--gold);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(245, 194, 66, 0.3);
+      padding: 8px 14px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 10px 0 14px;
+    }
+
+    /* Footer & Disclaimers */
+    footer.site-footer {
+      margin-top: 40px;
+      background: rgba(5, 7, 12, 0.94);
+      border-top: 1px solid var(--border);
+      padding: 36px 0 48px;
+    }
+
+    .disclaimer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 16px;
+      margin: 18px 0 24px;
+    }
+
+    .disclaimer-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .disclaimer-card h4 {
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .disclaimer-card p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 18px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .footer-bottom a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a href="#top" class="brand">
+        <span class="brand-badge">24/7 Hub</span>
+        <span class="brand-title">SinCity<span>TV</span>.com</span>
+      </a>
+
+      <nav class="top-nav" aria-label="Primary Navigation">
+        <a href="#news-stations">News Stations</a>
+        <a href="#cams-traffic">Cams &amp; Traffic</a>
+        <a href="#lifestyle-sports">Nightlife, Dining &amp; Sports</a>
+        <a href="#real-estate">Real Estate</a>
+        <a href="#advertise">Advertise</a>
+        <a href="#disclaimers">Disclaimers</a>
+      </nav>
+
+      <div class="clock-pill" id="lvClock">Las Vegas PT: Loading...</div>
+    </div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="eyebrow">Las Vegas News &bull; Live Feeds &bull; Advertising Directory</div>
+        <h1>Everything Las Vegas, Routed Straight to Official Sources</h1>
+        <p>
+          SinCityTV.com is a 24/7 Las Vegas information and advertising portal connecting visitors and locals
+          to local news stations, live street and traffic cams, nightlife and dining platforms, sports coverage,
+          and real estate resources—with zero lead forms and direct external links.
+        </p>
+        <div class="hero-actions">
+          <a href="#news-stations" class="btn btn-gold">Browse Las Vegas News Links</a>
+          <a href="mailto:ALL4AIM@hotmail.com?subject=Advertising%20Inquiry%20-%20SinCityTV.com" class="btn btn-ghost">
+            Ad Inquiries: ALL4AIM@hotmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local News Stations & Press Links -->
+    <section id="news-stations" class="content-section">
+      <div class="section-head">
+        <div>
+          <h2>Las Vegas News Stations &amp; Local Press</h2>
+          <p>Direct outbound links to official Southern Nevada television stations and local news sites.</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <div>
+            <div class="card-tag">Local TV &bull; ABC Affiliate</div>
+            <h3>KTNV — 13 Action News</h3>
+            <p>Southern Nevada local breaking news, weather, traffic, and community coverage.</p>
+          </div>
+          <a href="https://www.ktnv.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Visit ktnv.com &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Local TV &bull; CBS Affiliate</div>
+            <h3>KLAS — 8 News Now</h3>
+            <p>Las Vegas valley news, investigative reports, weather updates, and local sports.</p>
+          </div>
+          <a href="https://www.8newsnow.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Visit 8newsnow.com &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Local TV &bull; FOX Affiliate</div>
+            <h3>KVVU — FOX5 Vegas</h3>
+            <p>Las Vegas headlines, local forecasts, Strip developments, and entertainment updates.</p>
+          </div>
+          <a href="https://www.fox5vegas.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Visit fox5vegas.com &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Local TV &bull; NBC Affiliate</div>
+            <h3>KSNV — News 3 Las Vegas</h3>
+            <p>Regional news, commuter updates, weather alerts, and Southern Nevada stories.</p>
+          </div>
+          <a href="https://news3lv.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Visit news3lv.com &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Daily Newspaper</div>
+            <h3>Las Vegas Review-Journal</h3>
+            <p>Local news, resort and gaming industry coverage, business, and sports reporting.</p>
+          </div>
+          <a href="https://www.reviewjournal.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Visit reviewjournal.com &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Local Digital News</div>
+            <h3>Las Vegas Sun</h3>
+            <p>Las Vegas and Nevada news, civic reporting, opinion, and local features.</p>
+          </div>
+          <a href="https://lasvegassun.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Visit lasvegassun.com &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Live Cams & Traffic -->
+    <section id="cams-traffic" class="content-section">
+      <div class="section-head">
+        <div>
+          <h2>Live Cams &amp; Strip / Freeway Traffic</h2>
+          <p>Launch live public camera feeds and real-time road condition resources directly in a new tab.</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <div>
+            <div class="card-tag">Live Video Streams</div>
+            <h3>YouTube Live Las Vegas Streams</h3>
+            <p>Search and watch active 24/7 live streams of the Strip, Fremont Street, and Las Vegas scenes.</p>
+          </div>
+          <a href="https://www.youtube.com/results?search_query=las+vegas+live+cam&sp=EgJAAQ%253D%253D" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Open Live Streams on YouTube &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Street &amp; Landmark Cams</div>
+            <h3>EarthCam — Las Vegas</h3>
+            <p>View live camera feeds across Las Vegas landmarks and resort corridors.</p>
+          </div>
+          <a href="https://www.earthcam.com/usa/nevada/lasvegas/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Open EarthCam Las Vegas &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Highway &amp; Traffic</div>
+            <h3>Nevada DOT (NV Roads) Traffic</h3>
+            <p>Check real-time highway cameras, incidents, and road closures across Southern Nevada.</p>
+          </div>
+          <a href="https://nvroads.com/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Open NV Roads Traffic &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Nightlife, Dining & Sports -->
+    <section id="lifestyle-sports" class="content-section">
+      <div class="section-head">
+        <div>
+          <h2>Nightlife, Dining &amp; Sports</h2>
+          <p>Outbound hubs for nightlife listings, restaurant reservations, and Las Vegas sports coverage.</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <div>
+            <div class="card-tag">Nightlife &amp; Events</div>
+            <h3>Las Vegas Nightlife &amp; Club Guides</h3>
+            <p>Explore DJ schedules, guest list info, and nightlife listings on established nightlife platforms.</p>
+          </div>
+          <a href="https://app.discotech.me/las-vegas/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Explore Discotech Las Vegas &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Restaurants &amp; Reservations</div>
+            <h3>Las Vegas Dining Reservations</h3>
+            <p>Check table availability across Strip restaurants, steakhouses, and neighborhood dining.</p>
+          </div>
+          <a href="https://www.opentable.com/las-vegas-restaurants" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Browse OpenTable Las Vegas &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Sports &amp; Gaming News</div>
+            <h3>Las Vegas Sports &amp; Gaming Coverage</h3>
+            <p>Follow local sports teams, stadium news, and gaming industry headlines through trusted outlets.</p>
+          </div>
+          <a href="https://www.reviewjournal.com/sports/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            View Las Vegas Sports News &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Real Estate -->
+    <section id="real-estate" class="content-section">
+      <div class="section-head">
+        <div>
+          <h2>Las Vegas Real Estate</h2>
+          <p>Direct links to public real estate listing portals and local market resources.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <div>
+            <div class="card-tag">Residential &amp; High-Rise Listings</div>
+            <h3>Las Vegas Homes &amp; Condos</h3>
+            <p>Search active listings, condos, and neighborhoods across Las Vegas, Henderson, and Summerlin.</p>
+          </div>
+          <a href="https://www.zillow.com/las-vegas-nv/" target="_blank" rel="noopener noreferrer" class="ext-link">
+            Search Las Vegas Listings on Zillow &rarr;
+          </a>
+        </article>
+
+        <article class="card">
+          <div>
+            <div class="card-tag">Market Trends &amp; Inventory</div>
+            <h3>Las Vegas Market Data</h3>
+            <p>Review pricing trends, inventory snapshots, and neighborhood guides on public market portals.</p>
+          </div>
+          <a href="https://www.redfin.com/city/10765/NV/Las-Vegas" target="_blank" rel="noopener noreferrer" class="ext-link">
+            View Redfin Las Vegas Market &rarr;
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Advertising -->
+    <section id="advertise" class="content-section">
+      <div class="ad-box">
+        <div class="eyebrow">Advertising &amp; Sponsorships</div>
+        <h2>Advertise on SinCityTV.com</h2>
+        <p>
+          Promote your business, event, hospitality service, or real estate brand to visitors and locals following
+          Las Vegas news and activity. Reach out directly via email—no forms required.
+        </p>
+        <div class="ad-email">ALL4AIM@hotmail.com</div>
+        <div>
+          <a href="mailto:ALL4AIM@hotmail.com?subject=SinCityTV.com%20Advertising%20Inquiry" class="btn btn-gold">
+            Email ALL4AIM@hotmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="disclaimers" class="site-footer">
+    <div class="container">
+      <h3>Legal Notices &amp; Disclaimers</h3>
+
+      <div class="disclaimer-grid">
+        <div class="disclaimer-card">
+          <h4>1. Independent Site &amp; Non-Affiliation</h4>
+          <p>
+            SinCityTV.com is an independent informational and advertising website. It is not affiliated with,
+            endorsed by, or sponsored by any Las Vegas television station, newspaper, resort, casino, sports
+            league, or government agency linked on this page.
+          </p>
+        </div>
+
+        <div class="disclaimer-card">
+          <h4>2. Third-Party Links &amp; Content</h4>
+          <p>
+            External links open independent third-party websites over which SinCityTV.com has no control. We do not
+            guarantee the accuracy, availability, or uninterrupted operation of third-party streams, traffic feeds,
+            listings, or news coverage.
+          </p>
+        </div>
+
+        <div class="disclaimer-card">
+          <h4>3. Trademarks &amp; Copyright</h4>
+          <p>
+            All third-party station names, publications, trademarks, logos, and copyrighted materials remain the
+            property of their respective owners. SinCityTV.com uses descriptive names and outbound links to direct
+            users to original sources.
+          </p>
+        </div>
+
+        <div class="disclaimer-card">
+          <h4>4. Gaming &amp; Sports Information</h4>
+          <p>
+            Any gaming or sports references are provided for general information only. SinCityTV.com does not operate
+            a gambling service or accept wagers. Gambling laws and age restrictions vary by jurisdiction—please play
+            responsibly. If you or someone you know has a gambling problem, call 1-800-GAMBLER.
+          </p>
+        </div>
+
+        <div class="disclaimer-card">
+          <h4>5. Real Estate &amp; Advertising</h4>
+          <p>
+            Real estate links are provided for general research and are not brokerage, legal, or financial advice.
+            Sponsored placements and advertisements are promotional in nature and do not constitute an endorsement
+            by SinCityTV.com. Inquiries regarding advertising may be sent to ALL4AIM@hotmail.com.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="yearSpan">2026</span> SinCityTV.com. All rights reserved.</span>
+        <span>Advertising Contact: <a href="mailto:ALL4AIM@hotmail.com">ALL4AIM@hotmail.com</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateLasVegasClock() {
+      const el = document.getElementById('lvClock');
+      if (!el) return;
+      const now = new Date();
+      const formatted = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Los_Angeles',
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }).format(now);
+      el.textContent = 'Las Vegas PT: ' + formatted;
+    }
+
+    document.getElementById('yearSpan').textContent = new Date().getFullYear();
+    updateLasVegasClock();
+    setInterval(updateLasVegasClock, 1000);
+  </script>
+</body>
+</html>
